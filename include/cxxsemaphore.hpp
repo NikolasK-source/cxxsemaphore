@@ -46,7 +46,7 @@ public:
      *
      * @param timeout timeout (relative to NOW)
      */
-    bool wait(const struct timespec &timeout);
+    [[nodiscard]] bool wait(const struct timespec &timeout);
 
     /**
      * @brief try to acquire the semaphore
@@ -54,12 +54,16 @@ public:
      * @return true semaphore acquired
      * @return false semaphore not available
      */
-    bool try_wait();
+    [[nodiscard]] bool try_wait();
 
     /**
      * @brief post (release) the semaphore
      */
     void post();
+
+    [[nodiscard]] inline bool is_acquired() const noexcept { return acquired; }
+
+    [[nodiscard]] inline const std::string &get_name() const noexcept { return NAME; }
 };
 
 }  // namespace cxxsemaphore
