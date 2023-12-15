@@ -66,4 +66,23 @@ public:
     [[nodiscard]] inline const std::string &get_name() const noexcept { return NAME; }
 };
 
+/**
+ * @brief get library version
+ * @return library version as string
+ */
+[[maybe_unused, nodiscard]] std::string get_lib_version();
+
+/**
+ * @brief get full library info
+ * @details contains name, version, compiler and system
+ * @return library info as string
+ */
+[[maybe_unused, nodiscard]] std::string get_lib_info();
+
+/**
+ * @brief get library compilation date
+ * @return compilation date as string
+ */
+[[maybe_unused, nodiscard]] std::string get_lib_date();
+
 }  // namespace cxxsemaphore
