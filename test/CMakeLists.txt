@@ -3,7 +3,7 @@
 # This program is free software. You can redistribute it and/or modify it under the terms of the MIT License.
 #
 
-add_executable(test_${Target} template_test.cpp)
+add_executable(test_${Target} test_main.cpp)
 
 enable_testing()
 add_test(NAME test_${Target}  COMMAND test_${Target})

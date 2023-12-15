@@ -9,9 +9,9 @@ cmake_minimum_required(VERSION 3.13.4 FATAL_ERROR)
 # ======================================================================================================================
 
 # project
-project(CMAKE_Template_Lib LANGUAGES CXX VERSION 0.0.1)
+project(cxxsemaphore LANGUAGES CXX VERSION 1.0.0)
 
-set(Target "Template_Lib")        # library name
+set(Target "cxxsemaphore")        # library name
 set(STANDARD 17)                  # C++ Standard
 set(ARCHITECTURE "native")        # CPU architecture to optimize for (only relevant if OPTIMIZE_FOR_ARCHITECTURE is ON)
 
