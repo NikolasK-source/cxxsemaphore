@@ -67,8 +67,8 @@ bool Semaphore::wait(const struct timespec &timeout) {
     timeout_time.tv_sec  = timeout.tv_sec + current_time.tv_sec;
     timeout_time.tv_nsec = timeout.tv_nsec + current_time.tv_usec * 1'000;
 
-    timeout_time.tv_sec += timeout_time.tv_nsec / 1'000'000;
-    timeout_time.tv_nsec = timeout_time.tv_nsec % 1'000'000;
+    timeout_time.tv_sec += timeout_time.tv_nsec / 1'000'000'000;
+    timeout_time.tv_nsec %= 1'000'000'000;
 
     tmp = sem_timedwait(semaphore, &timeout_time);
     if (tmp == -1) {
