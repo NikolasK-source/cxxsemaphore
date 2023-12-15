@@ -1,8 +1,3 @@
-# CMake Library Project template
+# CxxSemaphore
 
-This repository is a template for CMake C++ Projects.
-
-## Supported Compilers
-
-    - gcc
-    - clang
+A C++ Library to handle POSIX named Semaphores.
