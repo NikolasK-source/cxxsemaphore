@@ -1,2 +1,0 @@
-/usr/bin/ar qc libcxxsemaphore.a CMakeFiles/cxxsemaphore.dir/src/cxxsemaphore.cpp.o
-/usr/bin/ranlib libcxxsemaphore.a
