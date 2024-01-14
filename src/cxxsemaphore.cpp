@@ -55,7 +55,7 @@ void Semaphore::wait() {
 bool Semaphore::wait(const struct timespec &timeout) {
     if (acquired) throw std::logic_error("semaphore already acquired");
 
-    if (timeout.tv_sec < 0 || timeout.tv_nsec < 0 || timeout.tv_nsec >= 1'000'000 ||
+    if (timeout.tv_sec < 0 || timeout.tv_nsec < 0 || timeout.tv_nsec >= 1'000'000'000 ||
         (timeout.tv_sec == 0 && timeout.tv_nsec == 0))
         throw std::invalid_argument("invalid timeout value");
 
