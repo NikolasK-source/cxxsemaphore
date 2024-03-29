@@ -13,20 +13,21 @@
 
 namespace cxxsemaphore {
 
-Semaphore::Semaphore(const std::string name, unsigned int value, bool force) : NAME(std::move(name)), owner(true) {
+Semaphore::Semaphore(std::string name, unsigned int value, bool force) : NAME(std::move(name)), owner(true) {
     if (value == 0) throw std::invalid_argument("semaphore cannot be initialized with value 0");
 
     int flag = O_CREAT;
     if (!force) flag |= O_EXCL;
 
-    semaphore = sem_open(("/" + NAME).c_str(), flag, 0640, value);
+    static constexpr mode_t DEFAULT_PERMISSIONS = 0640;
+    semaphore = sem_open(("/" + NAME).c_str(), flag, DEFAULT_PERMISSIONS, value);  // NOLINT
 
     if (semaphore == SEM_FAILED)
         throw std::system_error(errno, std::generic_category(), "Failed to open semaphore '" + NAME + '\'');
 }
 
-Semaphore::Semaphore(const std::string name) : NAME(std::move(name)), owner(false) {
-    semaphore = sem_open(("/" + NAME).c_str(), 0);
+Semaphore::Semaphore(std::string name) : NAME(std::move(name)), owner(false) {
+    semaphore = sem_open(("/" + NAME).c_str(), 0);  // NOLINT
 
     if (semaphore == SEM_FAILED)
         throw std::system_error(errno, std::generic_category(), "Failed to open semaphore '" + NAME + '\'');
@@ -55,20 +56,23 @@ void Semaphore::wait() {
 bool Semaphore::wait(const struct timespec &timeout) {
     if (acquired) throw std::logic_error("semaphore already acquired");
 
-    if (timeout.tv_sec < 0 || timeout.tv_nsec < 0 || timeout.tv_nsec >= 1'000'000'000 ||
+    static constexpr long NSEC_PER_SEC  = 1'000'000'000;
+    static constexpr long USEC_PER_NSEC = 1'000;
+
+    if (timeout.tv_sec < 0 || timeout.tv_nsec < 0 || timeout.tv_nsec >= NSEC_PER_SEC ||
         (timeout.tv_sec == 0 && timeout.tv_nsec == 0))
         throw std::invalid_argument("invalid timeout value");
 
-    struct timeval current_time;
+    struct timeval current_time {};
     auto           tmp = gettimeofday(&current_time, nullptr);
     if (tmp == -1) throw std::system_error(errno, std::generic_category(), "gettimeofday");
 
-    struct timespec timeout_time;
+    struct timespec timeout_time {};
     timeout_time.tv_sec  = timeout.tv_sec + current_time.tv_sec;
-    timeout_time.tv_nsec = timeout.tv_nsec + current_time.tv_usec * 1'000;
+    timeout_time.tv_nsec = timeout.tv_nsec + current_time.tv_usec * USEC_PER_NSEC;
 
-    timeout_time.tv_sec += timeout_time.tv_nsec / 1'000'000'000;
-    timeout_time.tv_nsec %= 1'000'000'000;
+    timeout_time.tv_sec += timeout_time.tv_nsec / NSEC_PER_SEC;
+    timeout_time.tv_nsec %= NSEC_PER_SEC;
 
     tmp = sem_timedwait(semaphore, &timeout_time);
     if (tmp == -1) {

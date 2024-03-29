@@ -25,14 +25,14 @@ public:
      * @param value semaphore value
      * @param force create semaphore even if a semaphore with the same name already exists
      */
-    explicit Semaphore(const std::string name, unsigned int value, bool force = false);
+    explicit Semaphore(std::string name, unsigned int value, bool force = false);
 
     /**
      * @brief Open an existing named semaphore
      *
      * @param name semaphore name (leading '/' is implicitly set)
      */
-    explicit Semaphore(const std::string name);
+    explicit Semaphore(std::string name);
 
     ~Semaphore();
 

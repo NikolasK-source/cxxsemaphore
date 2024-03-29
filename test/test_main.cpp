@@ -16,7 +16,7 @@ int main() {
     try {
         cxxsemaphore::Semaphore sem2(SEM_NAME, 1);
         return 1;
-    } catch (std::system_error &) {}
+    } catch (std::system_error &) {}  // NOLINT
 
     sem.wait();
     sem.post();
@@ -30,14 +30,14 @@ int main() {
     try {
         sem.wait();
         return 2;
-    } catch (std::logic_error &) {}
+    } catch (std::logic_error &) {}  // NOLINT
 
     sem.post();
 
     try {
         sem.post();
         return 3;
-    } catch (std::logic_error &) {}
+    } catch (std::logic_error &) {}  // NOLINT
 
 
     cxxsemaphore::Semaphore sem3(SEM_NAME);
