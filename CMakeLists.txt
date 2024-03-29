@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.22.0 FATAL_ERROR)
 # ======================================================================================================================
 
 # project
-project(cxxsemaphore LANGUAGES CXX VERSION 1.0.0)
+project(cxxsemaphore LANGUAGES CXX VERSION 2.0.0)
 
 set(Target "cxxsemaphore")        # library name
 set(STANDARD 20)                  # C++ Standard
