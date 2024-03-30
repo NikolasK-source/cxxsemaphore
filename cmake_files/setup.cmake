@@ -62,7 +62,7 @@ if (INSTAL_LIB)
         EXPORT ${Target}Targets
         FILE ${Target}Targets.cmake
         NAMESPACE "${Target}::"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cxxshm
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${Target}
     )
 
     configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake_files/Config.cmake.in
