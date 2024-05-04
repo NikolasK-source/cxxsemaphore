@@ -13,7 +13,7 @@ const std::string sem_name     = "example_sem";  // semaphore name
 constexpr unsigned sem_value   = 1;              // initial semaphore value
 constexpr bool force           = false;          // fail if semaphore already exists
 
-// create shared memory
+// create semaphore
 cxxsemaphore::Semaphore sem(sem_name, sem_value, force);
 ```
 
@@ -22,7 +22,7 @@ cxxsemaphore::Semaphore sem(sem_name, sem_value, force);
 ```c++
 const std::string sem_name = "example_sem";  // semaphore name
 
-// use shared memory
+// use semaphore
 cxxsemaphore::Semaphore sem(shm_name, read_only);
 ```
 
